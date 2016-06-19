@@ -1,0 +1,56 @@
+
+body{
+	background-image: url("crows-bg-01.jpg");
+	background-size: cover;
+	color: #193f56;
+	font-family: 'Lato', sans-serif;
+	font-size: 12px;
+	font-weight: 700;
+	letter-spacing: 1px;
+}
+
+html{
+	text-align: center;
+}
+
+#logo{
+	padding: 120px 0px 50px 0px;
+}
+
+input{
+ 	padding: 5px 15px 5px 15px;
+    margin: 1px 0px 8px 0px;
+	border: 3px solid #193f56;
+    background-color: transparent;
+}
+
+label{
+	display: block;
+}
+
+button {
+    background-color: #193f56;
+    border: none;
+    color: white;
+    padding: 10px 60px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 12px;
+    border-radius: 30px;
+    margin-top: 20px;
+    font-family: 'Lato', sans-serif;
+    font-weight: 400;
+	letter-spacing: 2px;
+	transition-duration: 0.5s;
+}
+
+button:hover {
+	opacity: .5;
+}
+
+
+
+
+
+
