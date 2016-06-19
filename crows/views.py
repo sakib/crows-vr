@@ -1,12 +1,11 @@
 from flask import render_template, request, url_for
 from geopy.geocoders import Nominatim
 from crows import app, tweepy_api
-import tweepy, requests
-# from vaderSentiment.vaderSentiment import sentiment as vaderSentiment
+import tweepy, requests, math
+
 
 @app.route('/', methods=['GET'])
 def index():
-    # for tweet in tweepy_api.home_timeline(): print tweet.text
     return render_template('index.html')
 
 
@@ -43,9 +42,6 @@ def get_sentiment(lat, long, rad):
     neg, neutral, pos = 0.0, 0.0, 0.0
     for tweet in tweets:
         print tweet.text
-        # uni_text = u' '.join((tweet.text)).encode('utf-8')
-        # vs = vaderSentiment(uni_text)
-        # print "\t" + str(vs) + "\n"
         r = requests.post('http://text-processing.com/api/sentiment/',
             data={'text': tweet.text}).json()["probability"]
         neg += r["neg"]
