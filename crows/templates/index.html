@@ -1,0 +1,13 @@
+
+{% if sentiment %}
+<h4><p> Your sentiment is {{ sentiment }}! <p></h4>
+{% endif %}
+
+<br>Ayy lmao
+
+<form action="{{ url_for('current_sentiment') }}" id="sentiment" method="POST" name="sentiment">
+  <input name="latitude" type="text"><br>
+  <input name="longitude" type="text"><br>
+  <button type="submit">Submit</button>
+</form>
+
