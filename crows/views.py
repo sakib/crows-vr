@@ -1,6 +1,5 @@
 from flask import render_template, request, url_for
-from geopy.geocoders import Nominatim
-from crows import app, tweepy_api
+from crows import app, tweepy_api, geolocator
 import tweepy, requests, math
 
 
@@ -15,30 +14,25 @@ def current_sentiment():
         return open('sentiment', 'r').readline()
 
     if request.method == 'POST':
-        lat = request.form.get('latitude')
-        long = request.form.get('longitude')
+        loc = request.form.get('location')
         rad = request.form.get('radius')
 
-        s = get_sentiment(lat, long, rad)
+        s = get_sentiment(loc, rad)
         with open('sentiment', 'w') as f:
             f.write(str(s))
 
         return render_template('index.html', sentiment=s)
 
 
-def get_sentiment(lat, long, rad):
-    print lat, long, rad
+def get_sentiment(loc, rad):
     # grab placeID, grab tweets, analyze sentiment of tweets
-    places = tweepy_api.reverse_geocode(lat=lat, long=long, accuracy=rad*1000)
-    tweets = []
-    for place in places:
-        for tweet in tweepy_api.search(q="place:%s" % place.id):
-            tweets.append(tweet)
-
-    geolocator = Nominatim()
+    location = geolocator.geocode(str(loc))
+    lat = location.latitude
+    long = location.longitude
+    place = tweepy_api.reverse_geocode(lat=lat, long=long, accuracy=rad*1000)[0]
+    tweets = tweepy_api.search(q="place:{0}".format(place.id), lang="en")
     location = geolocator.reverse("{0}, {1}".format(lat, long))
 
-    print "------------"
     neg, neutral, pos = 0.0, 0.0, 0.0
     for tweet in tweets:
         print tweet.text
@@ -50,7 +44,5 @@ def get_sentiment(lat, long, rad):
         print r["neg"], r["neutral"], r["pos"]
         print "\n"
 
-    return {"place": location.address,
-            "neg": neg/len(tweets),
-            "neutral": neutral/len(tweets),
-            "pos": pos/len(tweets)}
+    return neg/len(tweets), neutral/len(tweets), \
+        pos/len(tweets), location.address.encode('ascii', 'ignore')

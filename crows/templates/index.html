@@ -1,21 +1,24 @@
 <head>
 	<title>CROWS VR</title>
 	<link href='https://fonts.googleapis.com/css?family=Lato:400,700' rel='stylesheet' type='text/css'>
-    <link rel="icon" type="image/ico" href="favicon.png">
-	<link rel="stylesheet" href="style.css">
+    <link rel="icon" type="image/ico" href="static/favicon.png">
+	<link rel="stylesheet" href="static/style.css">
 </head>
 
 <body>
 
 <div id="wrap">
 	<div id="logo">
-	<img src="crows-logo.png"></img>
+	<img src="static/crows-logo.png"></img>
 	</div>
+
+  {% if sentiment %}
+  {{ sentiment }} <br><br>
+  {% endif %}
 
 	<div id="form">
 		<form action="{{ url_for('current_sentiment') }}" id="sentiment" method="POST" name="sentiment">
-		  <label>LATITUDE:</label><input name="latitude" type="text"><br>
-		  <label>LONGITUDE:</label><input name="longitude" type="text"><br>
+		  <label>LOCATION:</label><input name="location" type="text"><br>
 		  <label>RADIUS:</label><input name="radius" type="text"><br>
 		  <button type="submit">START</button>
 		</form>
