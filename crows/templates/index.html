@@ -3,11 +3,12 @@
 <h4><p> Your sentiment is {{ sentiment }}! <p></h4>
 {% endif %}
 
-<br>Ayy lmao
+Ayy lmao<br><br>
 
 <form action="{{ url_for('current_sentiment') }}" id="sentiment" method="POST" name="sentiment">
-  <input name="latitude" type="text"><br>
-  <input name="longitude" type="text"><br>
+  Latitude: <input name="latitude" type="text"><br>
+  Longitude: <input name="longitude" type="text"><br>
+  Radius: <input name="radius" type="text"><br>
   <button type="submit">Submit</button>
 </form>
 
