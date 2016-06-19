@@ -1,9 +1,12 @@
 from flask import render_template, request, url_for
 from crows import app
+import tweepy
+
 
 @app.route('/', methods=['GET'])
 def index():
     return render_template('index.html')
+
 
 @app.route('/cs', methods=['GET', 'POST'])
 def current_sentiment():
